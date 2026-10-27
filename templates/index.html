@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--tells the browser that this is an HTML5 document-->
+<html>
+<head>
+    <title>My To-Do List</title>
+    <!--This text shows up in the browser tab -->
+</head>
+<body>
+     <!--Everything inside this body is what you actually see on this page. -->
+     <h1>My To-Do List</h1>
+     <!-- h1 is the largest heading -->
+      <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Enter a new task">
+        <button type="submit">Add Task</button>
+      </form>
+      <!-- The list of task goes here.-->
+       <ul>
+        <!-- ul = an "unordered list", which shows bullet points. -->
+
+        {% for task in tasks %}
+            {# This is a Jinja comment (only you can see it).
+               {% %} is Jinja, Flask's template language.
+               This line loops through our Python list, one item at a time,
+               and each item is called "task" while we're inside the loop. #}
+
+            <li>{{ task }} <a href="/delete/{{ loop.index0 }}">Delete</a></li>
+            {# li = one bullet point.
+               {{ task }} prints the task's text.
+               {{ loop.index0 }} is the item's position (0, 1, 2...).
+               So the Delete link goes to /delete/0, /delete/1, etc.,
+               which runs our delete function in app.py. #}
+
+        {% endfor %}
+        {# Every for loop needs an endfor to close it. #}
+    </ul>
+</body>
+</html>
